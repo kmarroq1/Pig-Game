@@ -67,6 +67,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		this.btnTakeTurn = new Button("Take Turn");
 		this.btnTakeTurn.setOnAction(new TakeTurnListener());
 		buttonBox.getChildren().add(this.btnTakeTurn);
+		this.add(buttonBox, 0, 2);
 		
 		HBox bottomBox = new HBox();
 		bottomBox.getStyleClass().add("box-padding");
