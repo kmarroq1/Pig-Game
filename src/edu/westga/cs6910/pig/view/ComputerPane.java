@@ -15,6 +15,8 @@ import javafx.scene.layout.GridPane;
  * 	their turn
  * This class was started by CS6910
  * 
+ * @author Kimberly Marroquin
+ * @version June 5, 2021
  */
 public class ComputerPane extends GridPane implements InvalidationListener {
 	private Label lblDiceValues;
@@ -35,7 +37,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		this.theGame = theGame;
 		
 		// TODO: Add this object as an listener of the Game.
-		
+		this.theGame.addListener(this);
 		this.theComputer = this.theGame.getComputerPlayer();
 		
 		this.buildPane();
