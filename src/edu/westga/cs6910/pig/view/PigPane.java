@@ -42,13 +42,13 @@ public class PigPane extends BorderPane {
 
 		this.pnContent = new BorderPane();
 
-		this.addFirstPlayerChooserPane(theGame);
+		this.addFirstPlayerChooserPane();
 
-		this.addHumanPlayerPane(theGame);
+		this.addHumanPlayerPane();
 
-		this.addGameStatusPane(theGame);
+		this.addGameStatusPane();
 
-		this.addComputerPlayerPane(theGame);
+		this.addComputerPlayerPane();
 
 		this.setCenter(this.pnContent);
 	}
@@ -58,10 +58,10 @@ public class PigPane extends BorderPane {
 	 * 
 	 * @param theGame the current game session
 	 */
-	private void addFirstPlayerChooserPane(Game theGame) {
+	private void addFirstPlayerChooserPane() {
 		HBox topBox = new HBox();
 		topBox.getStyleClass().add("pane-border");
-		this.pnChooseFirstPlayer = new NewGamePane(theGame);
+		this.pnChooseFirstPlayer = new NewGamePane(this.theGame);
 		topBox.getChildren().add(this.pnChooseFirstPlayer);
 		this.pnContent.setTop(topBox);
 	}
@@ -71,10 +71,10 @@ public class PigPane extends BorderPane {
 	 * 
 	 * @param theGame the current game session
 	 */
-	private void addHumanPlayerPane(Game theGame) {
+	private void addHumanPlayerPane() {
 		HBox humanStatusBox = new HBox();
 		humanStatusBox.getStyleClass().add("pane-border");
-		this.pnHumanPlayer = new HumanPane(theGame);
+		this.pnHumanPlayer = new HumanPane(this.theGame);
 		humanStatusBox.getChildren().add(this.pnHumanPlayer);
 		this.pnContent.setLeft(humanStatusBox);
 	}
@@ -84,10 +84,10 @@ public class PigPane extends BorderPane {
 	 * 
 	 * @param theGame the current game session
 	 */
-	private void addGameStatusPane(Game theGame) {
+	private void addGameStatusPane() {
 		HBox gameStatusBox = new HBox();
 		gameStatusBox.getStyleClass().add("pane-border");
-		this.pnGameInfo = new StatusPane(theGame);
+		this.pnGameInfo = new StatusPane(this.theGame);
 		gameStatusBox.getChildren().add(this.pnGameInfo);
 		this.pnContent.setCenter(gameStatusBox);
 	}
@@ -97,10 +97,10 @@ public class PigPane extends BorderPane {
 	 * 
 	 * @param theGame the current game session
 	 */
-	private void addComputerPlayerPane(Game theGame) {
+	private void addComputerPlayerPane() {
 		HBox computerStatusBox = new HBox();
 		computerStatusBox.getStyleClass().add("pane-border");
-		this.pnComputerPlayer = new ComputerPane(theGame);
+		this.pnComputerPlayer = new ComputerPane(this.theGame);
 		computerStatusBox.getChildren().add(this.pnComputerPlayer);
 		this.pnContent.setRight(computerStatusBox);
 	}
