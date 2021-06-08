@@ -23,7 +23,11 @@ public abstract class AbstractPlayer implements Player {
 	 * @ensure name().equals(name) && getTotal() == 0
 	 */
 	public AbstractPlayer(String name) {
+		if (name == null) {
+			throw new IllegalArgumentException("Invalid name");
+		}
 		this.name = name;
+		this.total = 0;
 		this.thePair = new DicePair();
 	}
 
@@ -60,6 +64,9 @@ public abstract class AbstractPlayer implements Player {
 	 * @param die2Value second die value
 	 */
 	public void addTotal(int die1Value, int die2Value) {
+		if (die1Value <= 0 || die2Value <= 0) {
+			throw new IllegalArgumentException("Die value must be greater or equal to 0");
+		}
 		this.total += die1Value + die2Value;
 	}
 
@@ -70,6 +77,9 @@ public abstract class AbstractPlayer implements Player {
 	 * @param die2Value second die value
 	 */
 	public void addTurnTotal(int die1Value, int die2Value) {
+		if (die1Value <= 0 || die2Value <= 0) {
+			throw new IllegalArgumentException("Die value must be greater or equal to 0");
+		}
 		this.turnTotal += die1Value + die2Value;
 	}
 

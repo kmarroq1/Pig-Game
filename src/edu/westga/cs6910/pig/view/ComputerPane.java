@@ -35,8 +35,6 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	 */
 	public ComputerPane(Game theGame) {
 		this.theGame = theGame;
-
-		// TODO: Add this object as an listener of the Game.
 		this.theGame.addListener(this);
 		this.theComputer = this.theGame.getComputerPlayer();
 
@@ -47,7 +45,6 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	 * Adds elements to construct computer pane.
 	 */
 	private void buildPane() {
-		// TODO: Using the other pane classes as a model, build this pane.
 		HBox topBox = new HBox();
 		topBox.getStyleClass().add("box-center");
 		topBox.getStyleClass().add("box-padding");
@@ -84,15 +81,11 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		boolean myTurn = this.theGame.getCurrentPlayer() == this.theComputer;
 
 		if (!myTurn) {
-			// TODO: Set the user interface to show the results
-			// of the computer rolling the dice
 			int turnTotal = this.theComputer.getTurnTotal();
 			String result = this.theComputer.getDiceValues();
 			this.lblDiceValues.setText(result);
 			this.lblTurnTotal.setText("" + turnTotal);
 		}
-		// TODO: Disable this Pane if it is no longer the computer's turn, enable it if
-		// it is the computer's turn
 		this.setDisable(!myTurn);
 
 		if (this.theGame.isGameOver()) {
@@ -110,14 +103,11 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		 * Tells the Game to have its current player (i.e., the computer player) take
 		 * its turn.
 		 * 
-		 * @see javafx.event.EventHandler#handle(T-extends-javafx.event.Event)
+		 * @see javafx.event.EventHandler#handle(T extends javafx.event.Event)
 		 */
 		@Override
 		public void handle(ActionEvent arg0) {
-			// TODO: if the game isn't finished:
-			// - Set the maximum number of rolls
-			// - Tell theGame to play a move.
-			if(!ComputerPane.this.theGame.isGameOver()) {
+			if (!ComputerPane.this.theGame.isGameOver()) {
 				ComputerPane.this.theComputer.setMaximumRolls();
 				ComputerPane.this.theGame.play();
 			}
