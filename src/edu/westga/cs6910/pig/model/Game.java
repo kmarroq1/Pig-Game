@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * Game represents a Pig game.
- * @author CS6910
+ * @author CS6910, Kimberly Marroquin
  * @version Summer 2021
  */
 public class Game implements Observable {
@@ -90,8 +90,9 @@ public class Game implements Observable {
 	 */
 	public void hold() {
 		// TODO: Swap whose turn it is.
-		
-		this.isGameOver();
+		if (!this.isGameOver()) {
+			this.swapWhoseTurn();
+		}
 	}
 
 	/**
@@ -173,11 +174,20 @@ public class Game implements Observable {
 		}
 	}
 
+	/**
+	 * Swaps the players so that the other player becomes the current player.
+	 */
 	private void swapWhoseTurn() {
 		// TODO: Swap the players so that the other player becomes 
 		//       the current player.  Note that in order to access the
 		//		 object inside of the ObjectProperty, you'll need to use
 		//		 getValue() and setValue()
+		Player currentPlayer = this.currentPlayerObject.getValue();
+		if (currentPlayer == this.theHuman) {
+			this.currentPlayerObject.setValue(this.theComputer);
+		} else if (currentPlayer == this.theComputer) {
+			this.currentPlayerObject.setValue(this.theHuman);
+		}
 
 	}
 
