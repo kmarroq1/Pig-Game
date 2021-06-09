@@ -3,7 +3,9 @@ A game of pig where a human player plays against a simple computer which can onl
 roll the dice once per turn.
 
 Prerequesites:
-JavaFX version installed your system and referenced in the VM argument.
+
+VM Argument
+--module-path "${eclipse_home}/javafx-sdk-14.0.2.1/lib" --add-modules javafx.controls,javafx.fxml
 
 Technologies Used:
 -Java
@@ -14,10 +16,10 @@ To-do:
 -Add methods to model classes to facilitate more thorough testing.
 
 Notes: 
--I did my best to add documentation and test what I could on all the classes I 
-co-authored, but I wanted to focus more on the To-Do's for this assignment. I plan on 
-adding more JUnit testing for the other model classes so that my final application
-meets industry standards.
+-I originally dowloaded version 14.0.2.1 of javafx when we first started learning it
+and found that it worked for me in VLab for this project. If it's a fluke for some 
+reason, I can still try using/copying version 11.0.2 and renaming it as per the FAQ 
+instructions in my next submission.
+-I plan on adding more JUnit testing for the model classes I didn't co-author 
+so that my final application meets industry standards.
 -Methods with random number results or JavaFx data types were tested in the GUI.
--The ComputerPlayer class testing included most of the abstract class methods which
-are also used in the HumanPlayer class, which is why I only tested it for the one class.
