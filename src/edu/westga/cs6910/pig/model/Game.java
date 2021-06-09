@@ -15,7 +15,7 @@ public class Game implements Observable {
 	/**
 	 * The goal score for the game
 	 */
-	public static final int GOAL_SCORE = 200;
+	public static final int GOAL_SCORE = 20;
 
 	private ObjectProperty<Player> currentPlayerObject;
 	private HumanPlayer theHuman;
