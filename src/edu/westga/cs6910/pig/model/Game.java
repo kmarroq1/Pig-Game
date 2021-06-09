@@ -15,7 +15,7 @@ public class Game implements Observable {
 	/**
 	 * The goal score for the game
 	 */
-	public static final int GOAL_SCORE = 20;
+	public static final int GOAL_SCORE = 200;
 
 	private ObjectProperty<Player> currentPlayerObject;
 	private HumanPlayer theHuman;
@@ -183,7 +183,7 @@ public class Game implements Observable {
 		} else if (currentPlayer == this.theComputer) {
 			this.currentPlayerObject.setValue(this.theHuman);
 		}
-
+		currentPlayer.resetTurnTotal();
 	}
 
 	@Override
