@@ -16,10 +16,5 @@ To-do:
 -Add methods to model classes to facilitate more thorough testing.
 
 Notes: 
--I originally dowloaded version 14.0.2.1 of javafx when we first started learning it
-and found that it worked for me in VLab for this project. If it's a fluke for some 
-reason, I can still try using/copying version 11.0.2 and renaming it as per the FAQ 
-instructions in my next submission.
--I plan on adding more JUnit testing for the model classes I didn't co-author 
-so that my final application meets industry standards.
--Methods with random number results or JavaFx data types were tested in the GUI.
+-Constructors for classes referencing abstract super classes were indirectly tested by using getName method
+ in the corresponding JUnit test classes.
