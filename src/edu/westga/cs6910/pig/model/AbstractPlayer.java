@@ -85,6 +85,8 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Resets the turn total to zero.
+	 * 
 	 * @see Player#resetTurnTotal()
 	 */
 	public void resetTurnTotal() {
@@ -93,6 +95,8 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Allows the current layer to roll the die.
+	 * 
 	 * @see Player#takeTurn()
 	 */
 	public void takeTurn() {
@@ -112,6 +116,8 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Returns true if it is your turn.
+	 * 
 	 * @see Player#getIsMyTurn()
 	 */
 	public boolean getIsMyTurn() {
@@ -120,6 +126,8 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Returns the turn total.
+	 * 
 	 * @see Player#getTurnTotal()
 	 */
 	public int getTurnTotal() {
@@ -128,6 +136,8 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Returns the player name.
+	 * 
 	 * @see Player#getName()
 	 */
 	public String getName() {
@@ -136,6 +146,8 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Returns the value of both dice.
+	 * 
 	 * @see Player#getDiceValues()
 	 */
 	public String getDiceValues() {
@@ -144,6 +156,8 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Returns the total score of the player.
+	 * 
 	 * @see Player#getTotal()
 	 */
 	public int getTotal() {
