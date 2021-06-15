@@ -33,6 +33,17 @@ public class ComputerPlayerWhenAddOrSubtract {
 		testPlayer.addTotal(1, 1);
 		assertEquals(2, testPlayer.getTotal());
 	}
+	
+	/**
+	 * Test method for resetting the turn total.
+	 */
+	@Test
+	public void testResetTurnTotal() {
+		ComputerPlayer testPlayer = new ComputerPlayer();
+		testPlayer.addTotal(1, 1);
+		testPlayer.resetTurnTotal();
+		assertEquals(0, testPlayer.getTurnTotal());
+	}
 
 	/**
 	 * Test method for adding the turn total where the turn amounts to 2 points.
