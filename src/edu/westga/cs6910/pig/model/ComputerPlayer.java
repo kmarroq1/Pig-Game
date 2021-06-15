@@ -37,6 +37,15 @@ public class ComputerPlayer extends AbstractPlayer {
 	public void setMaximumRolls() {
 		this.maximumRolls = 1;
 	}
+	
+	/**
+	 * Returns the maximum rolls.
+	 * @return  maximum rolls
+	 * 
+	 */
+	public int getMaximumRolls() {
+		return this.maximumRolls;
+	}
 
 	@Override
 	/**
