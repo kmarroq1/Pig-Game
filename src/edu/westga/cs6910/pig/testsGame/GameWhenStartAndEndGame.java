@@ -1,4 +1,4 @@
-package edu.westga.cs6910.pig.tests;
+package edu.westga.cs6910.pig.testsGame;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
