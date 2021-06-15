@@ -7,20 +7,20 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs6910.pig.model.Die;
 
 /**
- * Tests getter method in die class.
+ * Tests constructor in die class.
  * 
  * @author Kimberly Marroquin
- * @version Jun 15, 2021
+ * @version Jun 14, 2021
  */
-public class TestWhenGetPips {
+public class DieWhenDieIsCreated {
 
 	/**
-	 * Test method for getting die pips
+	 * Test method for die class constructor.
 	 */
 	@Test
-	public void testWithNewDieShouldHave1Pip() {
+	public void testShouldProduceDieWith1Pip() {
 		Die newDie = new Die();
-		assertEquals(1, newDie.getNumberOfPips());
+		assertEquals("pips: 1", newDie.toString());
 	}
 
 }
