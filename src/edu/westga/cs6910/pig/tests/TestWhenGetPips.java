@@ -15,7 +15,7 @@ import edu.westga.cs6910.pig.model.Die;
 public class TestWhenGetPips {
 
 	/**
-	 * Test method for {@link edu.westga.cs6910.pig.model.Die#getNumberOfPips()}.
+	 * Test method for getting die pips
 	 */
 	@Test
 	public void testWithNewDieShouldHave1Pip() {
