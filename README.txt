@@ -11,10 +11,11 @@ Technologies Used:
 -Java
 -JavaFX
 -Eclipse
+-HTML/CSS
 
 To-do:
--Add methods to model classes to facilitate more thorough testing.
+-Add game to frontend.
 
 Notes: 
--Constructors for classes referencing abstract super classes were indirectly tested by using getName method
- in the corresponding JUnit test classes.
+-Constructors for classes referencing abstract super classes (HumanPlayer and ComputerPlayer) were indirectly tested by using 
+getName method in the corresponding JUnit test classes. This method is similar to using a toString method to test constructors.
