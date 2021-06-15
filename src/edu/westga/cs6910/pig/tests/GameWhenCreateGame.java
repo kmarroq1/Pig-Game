@@ -24,7 +24,7 @@ class GameWhenCreateGame {
 		HumanPlayer testHumanPlayer = new HumanPlayer("test human");
 		ComputerPlayer testComputerPlayer = new ComputerPlayer();
 		Game testGame = new Game(testHumanPlayer, testComputerPlayer);
-		assertEquals("Goal Score: 200\r\n" + "test human: 0\r\n" + "Simple computer: 0", testGame.toString());
+		assertEquals("Goal Score: 20\r\n" + "test human: 0\r\n" + "Simple computer: 0", testGame.toString());
 	}
 
 }
