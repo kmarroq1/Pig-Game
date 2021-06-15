@@ -12,13 +12,13 @@ import edu.westga.cs6910.pig.model.DicePair;
  * @author Kimberly Marroquin
  * @version Jun 15, 2021
  */
-class DicePairWhenCreateDicePair {
+public class DicePairWhenCreateDicePair {
 
 	/**
 	 * Test method for DicePair constructor.
 	 */
 	@Test
-	void testToString() {
+	public void testToString() {
 		DicePair testDicePair = new DicePair();
 		assertEquals("pips: 1, pips: 1", testDicePair.toString());
 	}
