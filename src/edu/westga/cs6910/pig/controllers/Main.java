@@ -22,7 +22,7 @@ public class Main extends Application {
 		Game theGame = new Game(new HumanPlayer("Human"), new ComputerPlayer());
 
 		PigPane root = new PigPane(theGame);
-		Scene scene = new Scene(root, 700, 200);
+		Scene scene = new Scene(root, 700, 220);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();

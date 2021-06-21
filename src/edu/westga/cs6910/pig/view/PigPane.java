@@ -4,12 +4,16 @@ import edu.westga.cs6910.pig.model.Game;
 import edu.westga.cs6910.pig.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * Defines a GUI for the Pig game. This class was started by CS6910
@@ -24,6 +28,7 @@ public class PigPane extends BorderPane {
 	private ComputerPane pnComputerPlayer;
 	private StatusPane pnGameInfo;
 	private Pane pnChooseFirstPlayer;
+	private MenuBarPane menuPane;
 
 	/**
 	 * Creates a pane object to provide the view for the specified Game model
@@ -51,12 +56,14 @@ public class PigPane extends BorderPane {
 		this.addComputerPlayerPane();
 
 		this.setCenter(this.pnContent);
+		
+		this.menuPane = new MenuBarPane();
+		super.setTop(this.menuPane);
 	}
 
 	/**
 	 * Sets up pane for choosing the first player.
 	 * 
-	 * @param theGame the current game session
 	 */
 	private void addFirstPlayerChooserPane() {
 		HBox topBox = new HBox();
@@ -69,7 +76,6 @@ public class PigPane extends BorderPane {
 	/**
 	 * Sets up pane for viewing the human player status.
 	 * 
-	 * @param theGame the current game session
 	 */
 	private void addHumanPlayerPane() {
 		HBox humanStatusBox = new HBox();
@@ -82,7 +88,6 @@ public class PigPane extends BorderPane {
 	/**
 	 * Sets up pane for viewing the game information.
 	 * 
-	 * @param theGame the current game session
 	 */
 	private void addGameStatusPane() {
 		HBox gameStatusBox = new HBox();
@@ -95,7 +100,6 @@ public class PigPane extends BorderPane {
 	/**
 	 * Sets up pane for viewing the computer player status.
 	 * 
-	 * @param theGame the current game session
 	 */
 	private void addComputerPlayerPane() {
 		HBox computerStatusBox = new HBox();
@@ -103,6 +107,39 @@ public class PigPane extends BorderPane {
 		this.pnComputerPlayer = new ComputerPane(this.theGame);
 		computerStatusBox.getChildren().add(this.pnComputerPlayer);
 		this.pnContent.setRight(computerStatusBox);
+	}
+
+	/**
+	 * Defines the menu bar in which the user can exit the game or choose a
+	 * ComputerPlayer strategy.
+	 */
+	private final class MenuBarPane extends BorderPane {
+		private MenuBarPane() {
+			this.buildMenuBar();
+		}
+
+		/**
+		 * Sets up the menu bar containing Game and ComputerPlayer strategies.
+		 */
+		private void buildMenuBar() {
+			MenuBar menuBar = new MenuBar();
+
+			Menu gameMenu = new Menu("Game");
+			MenuItem exitItem = new MenuItem("Exit Ctrl + X");
+			gameMenu.getItems().add(exitItem);
+
+			Menu strategyMenu = new Menu("Strategy");
+			MenuItem cautiousItem = new MenuItem("Cautious Ctrl + C");
+			MenuItem greedyItem = new MenuItem("Greedy Ctrl + E");
+			MenuItem randomItem = new MenuItem("Random Ctrl + R");
+			strategyMenu.getItems().add(cautiousItem);
+			strategyMenu.getItems().add(greedyItem);
+			strategyMenu.getItems().add(randomItem);
+
+			menuBar.getMenus().addAll(gameMenu, strategyMenu);
+			VBox menuBox = new VBox(menuBar);
+			super.setTop(menuBox);
+		}
 	}
 
 	/**
@@ -138,6 +175,7 @@ public class PigPane extends BorderPane {
 			buttonGroup.getToggles().addAll(this.radHumanPlayer, this.radComputerPlayer);
 
 			HBox buttonsBox = new HBox(20, this.radHumanPlayer, this.radComputerPlayer);
+
 			super.add(buttonsBox, 0, 0);
 		}
 
