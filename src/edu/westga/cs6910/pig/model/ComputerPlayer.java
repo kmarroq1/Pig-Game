@@ -69,7 +69,7 @@ public class ComputerPlayer extends AbstractPlayer {
 			super.getThePair().rollDice();
 			int die1Value = super.getThePair().getDie1Value();
 			int die2Value = super.getThePair().getDie2Value();
-			
+
 			if (die1Value == 1 || die2Value == 1) {
 				super.subtractingFromTotal();
 				super.setIsMyTurn(false);
@@ -93,10 +93,18 @@ public class ComputerPlayer extends AbstractPlayer {
 	/**
 	 * Sets game strategy.
 	 * 
-	 * @param strategy the strategy to set
+	 * @param newStrategy the strategy to set
+	 * 
+	 *                    Precondition: newSrategy != null
+	 * 
+	 *                    Postcondition: the specified strategy will determine how
+	 *                    the player will play
 	 */
-	public void setStrategy(PigStrategy strategy) {
-		this.strategy = strategy;
+	public void setStrategy(PigStrategy newStrategy) {
+		if (newStrategy == null) {
+			throw new IllegalArgumentException("Invalid strategy");
+		}
+		this.strategy = newStrategy;
 	}
 
 }
