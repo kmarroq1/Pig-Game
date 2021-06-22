@@ -1,5 +1,7 @@
 package edu.westga.cs6910.pig.model;
 
+import edu.westga.cs6910.pig.model.strategies.PigStrategy;
+
 /**
  * ComputerPlayer represents a very simple automated player in the game Pig. It
  * rolls exactly 1 time and then holds.
@@ -10,13 +12,20 @@ package edu.westga.cs6910.pig.model;
 public class ComputerPlayer extends AbstractPlayer {
 	private static final String NAME = "Simple computer";
 	private int maximumRolls;
+	private PigStrategy strategy;
 
 	/**
 	 * Creates a new ComputerPlayer with the specified name.
 	 * 
+	 * @param newStrategy the type of strategy to implement
+	 * 
 	 */
-	public ComputerPlayer() {
+	public ComputerPlayer(PigStrategy newStrategy) {
 		super(NAME);
+		if (newStrategy == null) {
+			throw new IllegalArgumentException("Invalid strategy");
+		}
+		this.setStrategy(newStrategy);
 	}
 
 	/**
@@ -37,10 +46,11 @@ public class ComputerPlayer extends AbstractPlayer {
 	public void setMaximumRolls() {
 		this.maximumRolls = 1;
 	}
-	
+
 	/**
 	 * Returns the maximum rolls.
-	 * @return  maximum rolls
+	 * 
+	 * @return maximum rolls
 	 * 
 	 */
 	public int getMaximumRolls() {
@@ -52,11 +62,14 @@ public class ComputerPlayer extends AbstractPlayer {
 	 * @see Computer#takeTurn()
 	 */
 	public void takeTurn() {
-		for (int count = 0; count < this.maximumRolls; count++) {
+		int numberOfRolls = 0;
+		do {
+			numberOfRolls++;
+			super.resetTurnTotal();
 			super.getThePair().rollDice();
-
 			int die1Value = super.getThePair().getDie1Value();
 			int die2Value = super.getThePair().getDie2Value();
+			
 			if (die1Value == 1 || die2Value == 1) {
 				super.subtractingFromTotal();
 				super.setIsMyTurn(false);
@@ -65,8 +78,25 @@ public class ComputerPlayer extends AbstractPlayer {
 				super.addTurnTotal(die1Value, die2Value);
 				super.addTotal(die1Value, die2Value);
 			}
-		}
-		super.setIsMyTurn(false);
+		} while (this.strategy.rollAgain(numberOfRolls, getTurnTotal(), Game.GOAL_SCORE - getTotal()));
+	}
+
+	/**
+	 * Gets game strategy.
+	 * 
+	 * @return the strategy
+	 */
+	public PigStrategy getStrategy() {
+		return this.strategy;
+	}
+
+	/**
+	 * Sets game strategy.
+	 * 
+	 * @param strategy the strategy to set
+	 */
+	public void setStrategy(PigStrategy strategy) {
+		this.strategy = strategy;
 	}
 
 }
