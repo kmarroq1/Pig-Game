@@ -2,6 +2,9 @@ package edu.westga.cs6910.pig.view;
 
 import edu.westga.cs6910.pig.model.Game;
 import edu.westga.cs6910.pig.model.Player;
+import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
+import edu.westga.cs6910.pig.model.strategies.GreedyStrategy;
+import edu.westga.cs6910.pig.model.strategies.RandomStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -144,6 +147,7 @@ public class PigPane extends BorderPane {
 			exitItem.setMnemonicParsing(true);
 			exitItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
 			exitItem.setOnAction(new EventHandler<ActionEvent>() {
+
 				/**
 				 * Exits out of pig game.
 				 */
@@ -163,25 +167,87 @@ public class PigPane extends BorderPane {
 			this.strategyMenu = new Menu("_Strategy");
 			this.strategyMenu.setMnemonicParsing(true);
 
+			RadioMenuItem cautiousOption = this.cautiousItem();
+			RadioMenuItem greedyOption = this.greedyItem();
+			RadioMenuItem randomOption = this.randomItem();
+
+			this.strategyMenu.getItems().add(cautiousOption);
+			this.strategyMenu.getItems().add(greedyOption);
+			this.strategyMenu.getItems().add(randomOption);
+
+			ToggleGroup toggleGroup = new ToggleGroup();
+			toggleGroup.getToggles().add(cautiousOption);
+			toggleGroup.getToggles().add(greedyOption);
+			toggleGroup.getToggles().add(randomOption);
+		}
+
+		/**
+		 * Creates the cautious game play menu item.
+		 * 
+		 * @return cautious menu item
+		 */
+		private RadioMenuItem cautiousItem() {
 			RadioMenuItem cautiousItem = new RadioMenuItem("_Cautious");
 			cautiousItem.setMnemonicParsing(true);
 			cautiousItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
+			cautiousItem.setOnAction(new EventHandler<ActionEvent>() {
 
+				/**
+				 * Sets game strategy to cautious game play.
+				 */
+				@Override
+				public void handle(ActionEvent arg0) {
+					CautiousStrategy newCautiousStrategy = new CautiousStrategy();
+					PigPane.this.theGame.getComputerPlayer().setStrategy(newCautiousStrategy);
+				}
+			});
+			return cautiousItem;
+		}
+
+		/**
+		 * Creates the greedy game play menu item.
+		 * 
+		 * @return greedy menu item
+		 */
+		private RadioMenuItem greedyItem() {
 			RadioMenuItem greedyItem = new RadioMenuItem("Gr_eedy");
 			greedyItem.setMnemonicParsing(true);
 			greedyItem.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN));
+			greedyItem.setOnAction(new EventHandler<ActionEvent>() {
 
+				/**
+				 * Sets game strategy to greedy game play.
+				 */
+				@Override
+				public void handle(ActionEvent arg0) {
+					GreedyStrategy newGreedyStrategy = new GreedyStrategy();
+					PigPane.this.theGame.getComputerPlayer().setStrategy(newGreedyStrategy);
+				}
+			});
+			return greedyItem;
+		}
+
+		/**
+		 * Creates the random game play menu item.
+		 * 
+		 * @return random menu item
+		 */
+		private RadioMenuItem randomItem() {
 			RadioMenuItem randomItem = new RadioMenuItem("_Random");
 			randomItem.setMnemonicParsing(true);
 			randomItem.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN));
+			randomItem.setOnAction(new EventHandler<ActionEvent>() {
 
-			this.strategyMenu.getItems().add(cautiousItem);
-			this.strategyMenu.getItems().add(greedyItem);
-			this.strategyMenu.getItems().add(randomItem);
-			ToggleGroup toggleGroup = new ToggleGroup();
-			toggleGroup.getToggles().add(cautiousItem);
-			toggleGroup.getToggles().add(greedyItem);
-			toggleGroup.getToggles().add(randomItem);
+				/**
+				 * Sets game strategy to random game play.
+				 */
+				@Override
+				public void handle(ActionEvent arg0) {
+					RandomStrategy newRandomStrategy = new RandomStrategy();
+					PigPane.this.theGame.getComputerPlayer().setStrategy(newRandomStrategy);
+				}
+			});
+			return randomItem;
 		}
 	}
 
