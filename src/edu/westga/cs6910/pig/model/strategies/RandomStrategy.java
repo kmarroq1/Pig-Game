@@ -17,12 +17,12 @@ public class RandomStrategy implements PigStrategy {
 	 */
 	@Override
 	public boolean rollAgain(int rollsTaken, int currentTurnTotal, int pointsUntilGoal) {
-		if (rollsTaken < 0 || currentTurnTotal < 0 || pointsUntilGoal < 0) {
+		if (rollsTaken < 0 || currentTurnTotal < 0) {
 			throw new IllegalArgumentException("Invalid values");
 		}
 		int max = 2;
 		int min = 1;
-		if (Math.floor(Math.random() * (max - min + 1) + min) == 1) {
+		if (Math.floor(Math.random() * (max - min + 1) + min) == 1 && pointsUntilGoal > 0) {
 			return true;
 		}
 		return false;

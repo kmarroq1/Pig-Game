@@ -19,11 +19,11 @@ public class GreedyStrategy implements PigStrategy {
 
 	@Override
 	public boolean rollAgain(int rollsTaken, int currentTurnTotal, int pointsUntilGoal) {
-		if (rollsTaken < 0 || currentTurnTotal < 0 || pointsUntilGoal < 0) {
+		if (rollsTaken < 0 || currentTurnTotal < 0) {
 			throw new IllegalArgumentException("Invalid values");
 		}
 		this.rollsTakenInTurn = rollsTaken;
-		if (this.rollsTakenInTurn < 3) {
+		if (this.rollsTakenInTurn < 3 && pointsUntilGoal > 0) {
 			return true;
 		}
 		return false;

@@ -13,7 +13,7 @@ public class CautiousStrategy implements PigStrategy {
 	 */
 	@Override
 	public boolean rollAgain(int rollsTaken, int currentTurnTotal, int pointsUntilGoal) {
-		if (rollsTaken < 0 || currentTurnTotal < 0 || pointsUntilGoal < 0) {
+		if (rollsTaken < 0 || currentTurnTotal < 0) {
 			throw new IllegalArgumentException("Invalid values");
 		}
 		return false;
