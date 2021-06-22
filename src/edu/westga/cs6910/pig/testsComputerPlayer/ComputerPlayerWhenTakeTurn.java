@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6910.pig.model.ComputerPlayer;
+import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
 
 /**
  * Tests takeTurn method in ComputerPlayer class.
@@ -20,7 +21,8 @@ public class ComputerPlayerWhenTakeTurn {
 	 */
 	@Test
 	public void testTakeTurn() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		for (int count = 0; count < 10000; count++) {
 			testPlayer.takeTurn();
 			if (testPlayer.getIsMyTurn()) {

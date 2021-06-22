@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs6910.pig.model.ComputerPlayer;
 import edu.westga.cs6910.pig.model.Game;
 import edu.westga.cs6910.pig.model.HumanPlayer;
+import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
 
 /**
  * Tests getter methods in Game class.
@@ -21,8 +22,9 @@ public class GameWhenGet {
 	 */
 	@Test
 	public void testGetHumanPlayer() {
+		CautiousStrategy strategy = new CautiousStrategy();
 		HumanPlayer human = new HumanPlayer("human player");
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		assertEquals("human player", testGame.getHumanPlayer().getName());
 	}
@@ -32,8 +34,9 @@ public class GameWhenGet {
 	 */
 	@Test
 	public void testGetComputerPlayer() {
+		CautiousStrategy strategy = new CautiousStrategy();
 		HumanPlayer human = new HumanPlayer("human player");
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		assertEquals("Simple computer", testGame.getComputerPlayer().getName());
 	}
@@ -43,8 +46,9 @@ public class GameWhenGet {
 	 */
 	@Test
 	public void testGetDicePair() {
+		CautiousStrategy strategy = new CautiousStrategy();
 		HumanPlayer human = new HumanPlayer("human player");
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		assertEquals("pips: 1, pips: 1", testGame.getDicePair().toString());
 	}

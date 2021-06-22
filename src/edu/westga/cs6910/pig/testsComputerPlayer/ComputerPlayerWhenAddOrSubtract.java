@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6910.pig.model.ComputerPlayer;
+import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
 
 /**
  * Tests adding and subtracting methods in ComputerPlayer super class.
@@ -19,7 +20,8 @@ public class ComputerPlayerWhenAddOrSubtract {
 	 */
 	@Test
 	public void testSubtractingFromTotal() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		testPlayer.subtractingFromTotal();
 		assertEquals(0, testPlayer.getTotal());
 	}
@@ -29,7 +31,8 @@ public class ComputerPlayerWhenAddOrSubtract {
 	 */
 	@Test
 	public void testAddTotal() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		testPlayer.addTotal(1, 1);
 		assertEquals(2, testPlayer.getTotal());
 	}
@@ -39,7 +42,8 @@ public class ComputerPlayerWhenAddOrSubtract {
 	 */
 	@Test
 	public void testResetTurnTotal() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		testPlayer.addTotal(1, 1);
 		testPlayer.resetTurnTotal();
 		assertEquals(0, testPlayer.getTurnTotal());
@@ -50,7 +54,8 @@ public class ComputerPlayerWhenAddOrSubtract {
 	 */
 	@Test
 	public void testAddTurnTotal() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		testPlayer.addTurnTotal(1, 1);
 		assertEquals(2, testPlayer.getTurnTotal());
 	}

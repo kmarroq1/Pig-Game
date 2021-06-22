@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs6910.pig.model.ComputerPlayer;
 import edu.westga.cs6910.pig.model.Game;
 import edu.westga.cs6910.pig.model.HumanPlayer;
+import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
 
 /**
  * Tests hold method from Game class. Play method makes use of hold method, but
@@ -23,8 +24,9 @@ public class GameWhenHold {
 	 */
 	@Test
 	public void testHold() {
+		CautiousStrategy strategy = new CautiousStrategy();
 		HumanPlayer human = new HumanPlayer("human player");
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		testGame.startNewGame(computer);
 		testGame.hold();

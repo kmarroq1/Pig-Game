@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6910.pig.model.ComputerPlayer;
+import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
 
 /**
  * Tests getter and setter methods in ComputerPlayer class.
@@ -19,7 +20,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testGetMaximumRolls() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals(0, testPlayer.getMaximumRolls());
 	}
 
@@ -28,7 +30,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testSetMaximumRolls() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		testPlayer.setMaximumRolls();
 		assertEquals(1, testPlayer.getMaximumRolls());
 	}
@@ -38,7 +41,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testGetThePair() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals("pips: 1, pips: 1", testPlayer.getThePair().toString());
 	}
 
@@ -47,7 +51,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testGetIsMyTurn() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals(false, testPlayer.getIsMyTurn());
 	}
 
@@ -56,7 +61,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testSetIsMyTurn() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		testPlayer.setIsMyTurn(true);
 		assertEquals(true, testPlayer.getIsMyTurn());
 	}
@@ -66,7 +72,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testGetTurnTotal() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals(0, testPlayer.getTurnTotal());
 	}
 
@@ -75,7 +82,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testGetName() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals("Simple computer", testPlayer.getName());
 	}
 
@@ -84,7 +92,8 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testGetDiceValues() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals("1, 1", testPlayer.getDiceValues());
 	}
 
@@ -93,8 +102,30 @@ public class ComputerPlayerWhenGetOrSet {
 	 */
 	@Test
 	public void testGetTotal() {
-		ComputerPlayer testPlayer = new ComputerPlayer();
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals(0, testPlayer.getTotal());
 	}
+	
+	/**
+	 * Test method for getting the strategy.
+	 */
+	@Test
+	public void testGetStrategy() {
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
+		assertEquals(strategy, testPlayer.getStrategy());
+	}
 
+	/**
+	 * Test method for setting the strategy.
+	 */
+	@Test
+	public void testSetStrategy() {
+		CautiousStrategy strategy = new CautiousStrategy();
+		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
+		CautiousStrategy otherStrategy = new CautiousStrategy();
+		testPlayer.setStrategy(otherStrategy);
+		assertEquals(otherStrategy, testPlayer.getStrategy());
+	}
 }

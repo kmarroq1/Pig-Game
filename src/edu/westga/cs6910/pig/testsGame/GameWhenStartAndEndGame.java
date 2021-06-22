@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs6910.pig.model.ComputerPlayer;
 import edu.westga.cs6910.pig.model.Game;
 import edu.westga.cs6910.pig.model.HumanPlayer;
+import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
 
 /**
  * Tests the methods used for starting a game and determining if the game is
@@ -23,8 +24,9 @@ public class GameWhenStartAndEndGame {
 	 */
 	@Test
 	public void testStartNewGame() {
+		CautiousStrategy strategy = new CautiousStrategy();
 		HumanPlayer human = new HumanPlayer("human player");
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		testGame.startNewGame(human);
 		assertEquals("human player", testGame.getCurrentPlayer().getName());
@@ -36,8 +38,9 @@ public class GameWhenStartAndEndGame {
 	 */
 	@Test
 	public void testGameIsOver() {
+		CautiousStrategy strategy = new CautiousStrategy();
 		HumanPlayer human = new HumanPlayer("human player");
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		testGame.startNewGame(human);
 		testGame.getHumanPlayer().addTotal(6, 6);
@@ -52,8 +55,9 @@ public class GameWhenStartAndEndGame {
 	 */
 	@Test
 	public void testGameIsNotOver() {
+		CautiousStrategy strategy = new CautiousStrategy();
 		HumanPlayer human = new HumanPlayer("human player");
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		testGame.startNewGame(human);
 		assertEquals(false, testGame.isGameOver());
