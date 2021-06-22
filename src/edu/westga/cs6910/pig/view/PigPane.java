@@ -47,10 +47,10 @@ public class PigPane extends BorderPane {
 			throw new IllegalArgumentException("Invalid game");
 		}
 		this.theGame = theGame;
-		
+
 		this.menuPane = new MenuBarPane();
 		super.setTop(this.menuPane);
-		
+
 		this.pnContent = new BorderPane();
 		this.setCenter(this.pnContent);
 
@@ -125,46 +125,56 @@ public class PigPane extends BorderPane {
 		 */
 		private void buildMenuBar() {
 			MenuBar menuBar = new MenuBar();
-			
+
 			this.buildGameMenu();
 			this.buildStrategyMenu();
 
 			menuBar.getMenus().addAll(this.gameMenu, this.strategyMenu);
 			super.setTop(menuBar);
 		}
-		
+
 		/**
 		 * Builds the game menu and exit item.
 		 */
 		private void buildGameMenu() {
 			this.gameMenu = new Menu("_Game");
 			this.gameMenu.setMnemonicParsing(true);
-			
+
 			MenuItem exitItem = new MenuItem("E_xit");
 			exitItem.setMnemonicParsing(true);
 			exitItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
+			exitItem.setOnAction(new EventHandler<ActionEvent>() {
+				/**
+				 * Exits out of pig game.
+				 */
+				@Override
+				public void handle(ActionEvent arg0) {
+					System.exit(0);
+				}
+			});
+
 			this.gameMenu.getItems().add(exitItem);
 		}
-		
+
 		/**
 		 * Builds the strategy menu and the cautious, greedy, and random items.
 		 */
 		private void buildStrategyMenu() {
 			this.strategyMenu = new Menu("_Strategy");
 			this.strategyMenu.setMnemonicParsing(true);
-			
+
 			RadioMenuItem cautiousItem = new RadioMenuItem("_Cautious");
 			cautiousItem.setMnemonicParsing(true);
 			cautiousItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
-			
+
 			RadioMenuItem greedyItem = new RadioMenuItem("Gr_eedy");
 			greedyItem.setMnemonicParsing(true);
 			greedyItem.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN));
-			
+
 			RadioMenuItem randomItem = new RadioMenuItem("_Random");
 			randomItem.setMnemonicParsing(true);
 			randomItem.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN));
-			
+
 			this.strategyMenu.getItems().add(cautiousItem);
 			this.strategyMenu.getItems().add(greedyItem);
 			this.strategyMenu.getItems().add(randomItem);
