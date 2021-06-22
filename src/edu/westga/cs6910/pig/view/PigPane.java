@@ -8,12 +8,15 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 /**
  * Defines a GUI for the Pig game. This class was started by CS6910
@@ -44,21 +47,17 @@ public class PigPane extends BorderPane {
 			throw new IllegalArgumentException("Invalid game");
 		}
 		this.theGame = theGame;
-
-		this.pnContent = new BorderPane();
-
-		this.addFirstPlayerChooserPane();
-
-		this.addHumanPlayerPane();
-
-		this.addGameStatusPane();
-
-		this.addComputerPlayerPane();
-
-		this.setCenter(this.pnContent);
 		
 		this.menuPane = new MenuBarPane();
 		super.setTop(this.menuPane);
+		
+		this.pnContent = new BorderPane();
+		this.setCenter(this.pnContent);
+
+		this.addFirstPlayerChooserPane();
+		this.addHumanPlayerPane();
+		this.addGameStatusPane();
+		this.addComputerPlayerPane();
 	}
 
 	/**
@@ -114,6 +113,9 @@ public class PigPane extends BorderPane {
 	 * ComputerPlayer strategy.
 	 */
 	private final class MenuBarPane extends BorderPane {
+		private Menu strategyMenu;
+		private Menu gameMenu;
+
 		private MenuBarPane() {
 			this.buildMenuBar();
 		}
@@ -123,22 +125,53 @@ public class PigPane extends BorderPane {
 		 */
 		private void buildMenuBar() {
 			MenuBar menuBar = new MenuBar();
+			
+			this.buildGameMenu();
+			this.buildStrategyMenu();
 
-			Menu gameMenu = new Menu("Game");
-			MenuItem exitItem = new MenuItem("Exit Ctrl + X");
-			gameMenu.getItems().add(exitItem);
-
-			Menu strategyMenu = new Menu("Strategy");
-			MenuItem cautiousItem = new MenuItem("Cautious Ctrl + C");
-			MenuItem greedyItem = new MenuItem("Greedy Ctrl + E");
-			MenuItem randomItem = new MenuItem("Random Ctrl + R");
-			strategyMenu.getItems().add(cautiousItem);
-			strategyMenu.getItems().add(greedyItem);
-			strategyMenu.getItems().add(randomItem);
-
-			menuBar.getMenus().addAll(gameMenu, strategyMenu);
-			VBox menuBox = new VBox(menuBar);
-			super.setTop(menuBox);
+			menuBar.getMenus().addAll(this.gameMenu, this.strategyMenu);
+			super.setTop(menuBar);
+		}
+		
+		/**
+		 * Builds the game menu and exit item.
+		 */
+		private void buildGameMenu() {
+			this.gameMenu = new Menu("_Game");
+			this.gameMenu.setMnemonicParsing(true);
+			
+			MenuItem exitItem = new MenuItem("E_xit");
+			exitItem.setMnemonicParsing(true);
+			exitItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
+			this.gameMenu.getItems().add(exitItem);
+		}
+		
+		/**
+		 * Builds the strategy menu and the cautious, greedy, and random items.
+		 */
+		private void buildStrategyMenu() {
+			this.strategyMenu = new Menu("_Strategy");
+			this.strategyMenu.setMnemonicParsing(true);
+			
+			RadioMenuItem cautiousItem = new RadioMenuItem("_Cautious");
+			cautiousItem.setMnemonicParsing(true);
+			cautiousItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
+			
+			RadioMenuItem greedyItem = new RadioMenuItem("Gr_eedy");
+			greedyItem.setMnemonicParsing(true);
+			greedyItem.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN));
+			
+			RadioMenuItem randomItem = new RadioMenuItem("_Random");
+			randomItem.setMnemonicParsing(true);
+			randomItem.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN));
+			
+			this.strategyMenu.getItems().add(cautiousItem);
+			this.strategyMenu.getItems().add(greedyItem);
+			this.strategyMenu.getItems().add(randomItem);
+			ToggleGroup toggleGroup = new ToggleGroup();
+			toggleGroup.getToggles().add(cautiousItem);
+			toggleGroup.getToggles().add(greedyItem);
+			toggleGroup.getToggles().add(randomItem);
 		}
 	}
 
@@ -162,6 +195,9 @@ public class PigPane extends BorderPane {
 			this.buildPane();
 		}
 
+		/**
+		 * Builds the pane holding the player radio buttons.
+		 */
 		private void buildPane() {
 			this.setHgap(20);
 
