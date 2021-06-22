@@ -20,3 +20,4 @@ Notes:
 -Constructors for classes referencing abstract super classes (HumanPlayer and ComputerPlayer) were indirectly tested by using 
 getName method in the corresponding JUnit test classes. This method is similar to using a toString method to test constructors.
 -Tested play method from Game class in GUI since it relies on player input.
+-Did not test random strategy class rollAgain method because results are random.
