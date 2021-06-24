@@ -65,13 +65,12 @@ public class ComputerPlayer extends AbstractPlayer {
 		int numberOfRolls = 0;
 		do {
 			numberOfRolls++;
-			super.resetTurnTotal();
 			super.getThePair().rollDice();
 			int die1Value = super.getThePair().getDie1Value();
 			int die2Value = super.getThePair().getDie2Value();
-
 			if (die1Value == 1 || die2Value == 1) {
 				super.subtractingFromTotal();
+				super.resetTurnTotal();
 				super.setIsMyTurn(false);
 				return;
 			} else {
