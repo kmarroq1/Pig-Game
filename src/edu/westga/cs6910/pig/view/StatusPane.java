@@ -52,7 +52,7 @@ public class StatusPane extends GridPane implements InvalidationListener {
 
 		HBox buttonBox = new HBox();
 		this.playAgain = new Button("Play Again");
-		this.playAgain.setOnAction(new TakeTurnListener());
+		this.playAgain.setOnAction(new PlayAgainListener());
 		buttonBox.getChildren().add(this.playAgain);
 		this.add(buttonBox, 0, 2);
 	}
@@ -61,17 +61,17 @@ public class StatusPane extends GridPane implements InvalidationListener {
 	public void invalidated(Observable observable) {
 		this.lblStatus.setText(this.theGame.toString());
 
-		if (!this.theGame.isGameOver() || this.theGame.getCurrentPlayer() == null) {
-			this.playAgain.setDisable(true);
-		} else {
+		if (this.theGame.isGameOver()) {
 			this.playAgain.setDisable(false);
+		} else {
+			this.playAgain.setDisable(true);
 		}
 	}
 
 	/**
 	 * Defines the listener for playAgain button.
 	 */
-	private class TakeTurnListener implements EventHandler<ActionEvent> {
+	private class PlayAgainListener implements EventHandler<ActionEvent> {
 
 		/**
 		 * Tells the Game to reset.
@@ -80,7 +80,9 @@ public class StatusPane extends GridPane implements InvalidationListener {
 		 */
 		@Override
 		public void handle(ActionEvent arg0) {
-			if (StatusPane.this.theGame.isGameOver()) {
+			if (!StatusPane.this.theGame.isGameOver() || StatusPane.this.theGame.getCurrentPlayer() == null) {
+				return;
+			} else {
 				StatusPane.this.theGame.playAgain();
 			}
 		}

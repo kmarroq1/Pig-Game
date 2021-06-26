@@ -95,6 +95,17 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
+	 * Resets all scores to zero.
+	 * 
+	 * @see Player#resetTurnTotal()
+	 */
+	public void resetTotalScores() {
+		this.turnTotal = 0;
+		this.total = 0;
+	}
+	
+	@Override
+	/**
 	 * Allows the current layer to roll the die.
 	 * 
 	 * @see Player#takeTurn()

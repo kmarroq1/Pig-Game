@@ -88,6 +88,21 @@ public class Game implements Observable {
 	}
 
 	/**
+	 * Resets the game.
+	 * 
+	 * @requires !isGameOver()
+	 * 
+	 * @ensures all scores are reset
+	 */
+	public void playAgain() {
+		this.theComputer.resetTotalScores();
+		this.theHuman.resetTotalScores();
+		this.swapWhoseTurn();
+		this.swapWhoseTurn();
+		this.startNewGame(this.getCurrentPlayer());
+	}
+	
+	/**
 	 * Notifies the game that the player is holding
 	 * 
 	 * @requires !isGameOver()
