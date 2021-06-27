@@ -79,7 +79,7 @@ public class StatusPane extends GridPane implements InvalidationListener {
 		 * @see javafx.event.EventHandler#handle(T extends javafx.event.Event)
 		 */
 		@Override
-		public void handle(ActionEvent arg0) {
+		public void handle(ActionEvent event) {
 			if (!StatusPane.this.theGame.isGameOver() || StatusPane.this.theGame.getCurrentPlayer() == null) {
 				return;
 			} else {

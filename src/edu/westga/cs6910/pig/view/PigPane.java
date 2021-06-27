@@ -300,7 +300,7 @@ public class PigPane extends BorderPane {
 			 * Enables the ComputerPlayerPanel and starts a new game. Event handler for a
 			 * click in the computerPlayerButton.
 			 */
-			public void handle(ActionEvent arg0) {
+			public void handle(ActionEvent event) {
 				PigPane.this.pnComputerPlayer.setDisable(false);
 				PigPane.this.pnChooseFirstPlayer.setDisable(true);
 				PigPane.this.theGame.startNewGame(NewGamePane.this.theComputer);
