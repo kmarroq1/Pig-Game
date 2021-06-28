@@ -95,7 +95,6 @@ public class Game implements Observable {
 	 * @ensures all scores are reset
 	 */
 	public void playAgain() {
-		this.thePair = new DicePair();
 		this.theComputer.resetTotalScores();
 		this.theHuman.resetTotalScores();
 		this.currentPlayerObject.setValue(null);

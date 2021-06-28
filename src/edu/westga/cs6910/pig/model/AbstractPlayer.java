@@ -95,13 +95,14 @@ public abstract class AbstractPlayer implements Player {
 
 	@Override
 	/**
-	 * Resets all scores to zero.
+	 * Resets all scores to zero and resets dice pair.
 	 * 
 	 * @see Player#resetTurnTotal()
 	 */
 	public void resetTotalScores() {
 		this.turnTotal = 0;
 		this.total = 0;
+		this.thePair = new DicePair();
 	}
 	
 	@Override
