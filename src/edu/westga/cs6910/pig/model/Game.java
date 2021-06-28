@@ -20,7 +20,7 @@ public class Game implements Observable {
 	private ObjectProperty<Player> currentPlayerObject;
 	private HumanPlayer theHuman;
 	private ComputerPlayer theComputer;
-
+	private Player firstPlayer;
 	private DicePair thePair;
 
 	/**
@@ -62,7 +62,7 @@ public class Game implements Observable {
 			throw new IllegalArgumentException("Invalid player");
 		}
 		this.currentPlayerObject.setValue(firstPlayer);
-
+		this.firstPlayer = firstPlayer;
 		this.thePair = new DicePair();
 	}
 
@@ -95,13 +95,13 @@ public class Game implements Observable {
 	 * @ensures all scores are reset
 	 */
 	public void playAgain() {
+		this.thePair = new DicePair();
 		this.theComputer.resetTotalScores();
 		this.theHuman.resetTotalScores();
-		this.swapWhoseTurn();
-		this.swapWhoseTurn();
-		this.startNewGame(this.getCurrentPlayer());
+		this.currentPlayerObject.setValue(null);
+		this.startNewGame(this.firstPlayer);
 	}
-	
+
 	/**
 	 * Notifies the game that the player is holding
 	 * 
