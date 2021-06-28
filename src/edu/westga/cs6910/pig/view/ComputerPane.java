@@ -80,12 +80,11 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	public void invalidated(Observable theObservable) {
 		boolean myTurn = this.theGame.getCurrentPlayer() == this.theComputer;
 
-		if (!myTurn) {
-			int turnTotal = this.theComputer.getTurnTotal();
-			String result = this.theComputer.getDiceValues();
-			this.lblDiceValues.setText(result);
-			this.lblTurnTotal.setText("" + turnTotal);
-		}
+		int turnTotal = this.theComputer.getTurnTotal();
+		String result = this.theComputer.getDiceValues();
+		this.lblDiceValues.setText(result);
+		this.lblTurnTotal.setText("" + turnTotal);
+
 		this.setDisable(!myTurn);
 
 		if (this.theGame.isGameOver()) {
