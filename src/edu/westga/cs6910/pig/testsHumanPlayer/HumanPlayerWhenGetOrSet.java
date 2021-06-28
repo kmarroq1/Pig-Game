@@ -76,4 +76,25 @@ class HumanPlayerWhenGetOrSet {
 		assertEquals(0, testPlayer.getTotal());
 	}
 
+	/**
+	 * Test method for resetting total score.
+	 */
+	@Test
+	public void testResetTotalScoresTotal() {
+		HumanPlayer testPlayer = new HumanPlayer("test");
+		testPlayer.addTotal(3, 4);
+		testPlayer.resetTotalScores();
+		assertEquals(0, testPlayer.getTotal());
+	}
+	
+	/**
+	 * Test method for resetting turn total score.
+	 */
+	@Test
+	public void testResetTotalScoresTurnTotal() {
+		HumanPlayer testPlayer = new HumanPlayer("test");
+		testPlayer.addTurnTotal(5, 6);
+		testPlayer.resetTotalScores();
+		assertEquals(0, testPlayer.getTurnTotal());
+	}
 }

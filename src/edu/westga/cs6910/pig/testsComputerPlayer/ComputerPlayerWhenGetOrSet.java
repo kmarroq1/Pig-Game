@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6910.pig.model.ComputerPlayer;
+import edu.westga.cs6910.pig.model.HumanPlayer;
 import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
 
 /**
@@ -106,7 +107,7 @@ public class ComputerPlayerWhenGetOrSet {
 		ComputerPlayer testPlayer = new ComputerPlayer(strategy);
 		assertEquals(0, testPlayer.getTotal());
 	}
-	
+
 	/**
 	 * Test method for getting the strategy.
 	 */
@@ -127,5 +128,27 @@ public class ComputerPlayerWhenGetOrSet {
 		CautiousStrategy otherStrategy = new CautiousStrategy();
 		testPlayer.setStrategy(otherStrategy);
 		assertEquals(otherStrategy, testPlayer.getStrategy());
+	}
+
+	/**
+	 * Test method for resetting total score.
+	 */
+	@Test
+	public void testResetTotalScoresTotal() {
+		HumanPlayer testPlayer = new HumanPlayer("test");
+		testPlayer.addTotal(3, 4);
+		testPlayer.resetTotalScores();
+		assertEquals(0, testPlayer.getTotal());
+	}
+
+	/**
+	 * Test method for resetting turn total score.
+	 */
+	@Test
+	public void testResetTotalScoresTurnTotal() {
+		HumanPlayer testPlayer = new HumanPlayer("test");
+		testPlayer.addTurnTotal(5, 6);
+		testPlayer.resetTotalScores();
+		assertEquals(0, testPlayer.getTurnTotal());
 	}
 }
