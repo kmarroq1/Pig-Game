@@ -1,5 +1,7 @@
 package edu.westga.cs6910.pig.model;
 
+import java.util.concurrent.TimeUnit;
+
 import edu.westga.cs6910.pig.model.strategies.PigStrategy;
 
 /**
@@ -62,6 +64,11 @@ public class ComputerPlayer extends AbstractPlayer {
 	 * @see Computer#takeTurn()
 	 */
 	public void takeTurn() {
+		try {
+			TimeUnit.SECONDS.sleep((long) 0.5);
+		} catch (InterruptedException exception) {
+			System.out.println("Error: " + exception.getMessage());
+		}
 		int numberOfRolls = 0;
 		do {
 			numberOfRolls++;

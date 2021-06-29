@@ -64,6 +64,9 @@ public class Game implements Observable {
 		this.currentPlayerObject.setValue(firstPlayer);
 		this.firstPlayer = firstPlayer;
 		this.thePair = new DicePair();
+		if (firstPlayer == this.theComputer) {
+			this.play();
+		}
 	}
 
 	/**
@@ -111,6 +114,9 @@ public class Game implements Observable {
 	public void hold() {
 		if (!this.isGameOver()) {
 			this.swapWhoseTurn();
+		}
+		if (this.getCurrentPlayer() == this.theComputer) {
+			this.play();
 		}
 	}
 
