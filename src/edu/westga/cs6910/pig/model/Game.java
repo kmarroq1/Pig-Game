@@ -133,6 +133,20 @@ public class Game implements Observable {
 	}
 
 	/**
+	 * Returns a random Player object.
+	 * 
+	 * @return a random Player
+	 */
+	public Player getRandomPlayer() {
+		int max = 2;
+		int min = 1;
+		if (Math.floor(Math.random() * (max - min + 1) + min) == 1) {
+			return this.theHuman;
+		}
+		return this.theComputer;
+	}
+	
+	/**
 	 * Returns the Player whose turn it is.
 	 * 
 	 * @return the current Player

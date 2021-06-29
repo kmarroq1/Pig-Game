@@ -148,12 +148,12 @@ public class PigPane extends BorderPane {
 			RadioMenuItem exitItem = this.exitItem();
 			RadioMenuItem rulesItem = this.rulesItem();
 
-			this.gameMenu.getItems().add(exitItem);
 			this.gameMenu.getItems().add(rulesItem);
+			this.gameMenu.getItems().add(exitItem);
 
 			ToggleGroup toggleGroup = new ToggleGroup();
-			toggleGroup.getToggles().add(exitItem);
 			toggleGroup.getToggles().add(rulesItem);
+			toggleGroup.getToggles().add(exitItem);
 		}
 
 		/**
@@ -303,16 +303,18 @@ public class PigPane extends BorderPane {
 	private final class NewGamePane extends GridPane {
 		private RadioButton radHumanPlayer;
 		private RadioButton radComputerPlayer;
-
+		private RadioButton radRandomPlayer;
 		private Game theGame;
 		private Player theHuman;
 		private Player theComputer;
+		private Player randomPlayer;
 
 		private NewGamePane(Game theGame) {
 			this.theGame = theGame;
 
 			this.theHuman = this.theGame.getHumanPlayer();
 			this.theComputer = this.theGame.getComputerPlayer();
+			this.randomPlayer = this.theGame.getRandomPlayer();
 
 			this.buildPane();
 		}
@@ -329,10 +331,13 @@ public class PigPane extends BorderPane {
 			this.radComputerPlayer = new RadioButton(this.theComputer.getName() + " first");
 			this.radComputerPlayer.setOnAction(new ComputerFirstListener());
 
-			ToggleGroup buttonGroup = new ToggleGroup();
-			buttonGroup.getToggles().addAll(this.radHumanPlayer, this.radComputerPlayer);
+			this.radRandomPlayer = new RadioButton("Pick for me");
+			this.radRandomPlayer.setOnAction(new RandomFirstListener());
 
-			HBox buttonsBox = new HBox(20, this.radHumanPlayer, this.radComputerPlayer);
+			ToggleGroup buttonGroup = new ToggleGroup();
+			buttonGroup.getToggles().addAll(this.radHumanPlayer, this.radComputerPlayer, this.radRandomPlayer);
+
+			HBox buttonsBox = new HBox(20, this.radHumanPlayer, this.radComputerPlayer, this.radRandomPlayer);
 
 			super.add(buttonsBox, 0, 0);
 		}
@@ -347,8 +352,8 @@ public class PigPane extends BorderPane {
 			 * click in the computerPlayerButton.
 			 */
 			public void handle(ActionEvent event) {
-				PigPane.this.pnComputerPlayer.setDisable(false);
 				PigPane.this.pnChooseFirstPlayer.setDisable(true);
+				PigPane.this.pnComputerPlayer.setDisable(false);
 				PigPane.this.theGame.startNewGame(NewGamePane.this.theComputer);
 			}
 		}
@@ -366,6 +371,27 @@ public class PigPane extends BorderPane {
 				PigPane.this.pnChooseFirstPlayer.setDisable(true);
 				PigPane.this.pnHumanPlayer.setDisable(false);
 				PigPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
+			}
+		}
+
+		/**
+		 * Defines the listener for human player first button.
+		 */
+		private class RandomFirstListener implements EventHandler<ActionEvent> {
+			/**
+			 * Sets up user interface and starts a new game. Event handler for a click in
+			 * the human player button.
+			 */
+			@Override
+			public void handle(ActionEvent event) {
+				PigPane.this.pnChooseFirstPlayer.setDisable(true);
+				if (NewGamePane.this.randomPlayer == NewGamePane.this.theHuman) {
+					PigPane.this.pnHumanPlayer.setDisable(false);
+					PigPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
+				} else {
+					PigPane.this.pnComputerPlayer.setDisable(false);
+					PigPane.this.theGame.startNewGame(NewGamePane.this.theComputer);
+				}
 			}
 		}
 	}
