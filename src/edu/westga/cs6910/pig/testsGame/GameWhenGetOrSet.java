@@ -15,7 +15,7 @@ import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
  * @author Kimberly Marroquin
  * @version Jun 15, 2021
  */
-public class GameWhenGet {
+public class GameWhenGetOrSet {
 
 	/**
 	 * Test method for getting the human player.
@@ -51,6 +51,31 @@ public class GameWhenGet {
 		ComputerPlayer computer = new ComputerPlayer(strategy);
 		Game testGame = new Game(human, computer);
 		assertEquals("pips: 1, pips: 1", testGame.getDicePair().toString());
+	}
+
+	/**
+	 * Test method for getting the goal score.
+	 */
+	@Test
+	public void testGetGoalScore() {
+		CautiousStrategy strategy = new CautiousStrategy();
+		HumanPlayer human = new HumanPlayer("human player");
+		ComputerPlayer computer = new ComputerPlayer(strategy);
+		Game testGame = new Game(human, computer);
+		assertEquals(20, testGame.getGoalScore());
+	}
+
+	/**
+	 * Test method for setting the goal score.
+	 */
+	@Test
+	public void testSetGoalScore() {
+		CautiousStrategy strategy = new CautiousStrategy();
+		HumanPlayer human = new HumanPlayer("human player");
+		ComputerPlayer computer = new ComputerPlayer(strategy);
+		Game testGame = new Game(human, computer);
+		testGame.setGoalScore(40);
+		assertEquals(40, testGame.getGoalScore());
 	}
 
 }
