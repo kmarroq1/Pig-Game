@@ -7,9 +7,11 @@ import edu.westga.cs6910.pig.model.strategies.GreedyStrategy;
 import edu.westga.cs6910.pig.model.strategies.RandomStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
@@ -143,7 +145,24 @@ public class PigPane extends BorderPane {
 			this.gameMenu = new Menu("_Game");
 			this.gameMenu.setMnemonicParsing(true);
 
-			MenuItem exitItem = new MenuItem("E_xit");
+			RadioMenuItem exitItem = this.exitItem();
+			RadioMenuItem rulesItem = this.rulesItem();
+
+			this.gameMenu.getItems().add(exitItem);
+			this.gameMenu.getItems().add(rulesItem);
+
+			ToggleGroup toggleGroup = new ToggleGroup();
+			toggleGroup.getToggles().add(exitItem);
+			toggleGroup.getToggles().add(rulesItem);
+		}
+
+		/**
+		 * Exits out of game.
+		 * 
+		 * @return exit menu item
+		 */
+		private RadioMenuItem exitItem() {
+			RadioMenuItem exitItem = new RadioMenuItem("E_xit");
 			exitItem.setMnemonicParsing(true);
 			exitItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
 			exitItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -156,8 +175,35 @@ public class PigPane extends BorderPane {
 					System.exit(0);
 				}
 			});
+			return exitItem;
+		}
 
-			this.gameMenu.getItems().add(exitItem);
+		/**
+		 * Opens up rules dialog.
+		 * 
+		 * @return opens rules dialog
+		 */
+		private RadioMenuItem rulesItem() {
+			RadioMenuItem rulesItem = new RadioMenuItem("R_ules");
+			rulesItem.setMnemonicParsing(true);
+			rulesItem.setAccelerator(new KeyCodeCombination(KeyCode.U, KeyCombination.SHORTCUT_DOWN));
+			rulesItem.setOnAction(new EventHandler<ActionEvent>() {
+
+				/**
+				 * Opens up game instruction dialog.
+				 */
+				@Override
+				public void handle(ActionEvent arg0) {
+					Dialog<String> dialog = new Dialog<String>();
+					dialog.setTitle("How to play");
+					ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
+					dialog.setContentText(
+							"1. (Opt.) Set a new goal score\n2. (Opt.) Select a strategy for the computer player\n3. Select the first player\n4. Either Roll/Hold or Take Turn depending on whose turn it is\n5. Play again!");
+					dialog.getDialogPane().getButtonTypes().add(type);
+					dialog.showAndWait();
+				}
+			});
+			return rulesItem;
 		}
 
 		/**
