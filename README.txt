@@ -15,9 +15,11 @@ Technologies Used:
 
 To-do:
 -Add game to frontend.
+-Make computer take its turn automatically.
 
 Notes: 
 -Constructors for classes referencing abstract super classes (HumanPlayer and ComputerPlayer) were indirectly tested by using 
-getName method in the corresponding JUnit test classes. This method is similar to using a toString method to test constructors.
+ getName method in the corresponding JUnit test classes. This method is similar to using a toString method to test constructors.
 -Tested play method from Game class in GUI since it relies on player input.
--Did not test random strategy class rollAgain method because results are random.
+-Tested playAgain method from Game class in GUI since it relies on player input as a starting point to properly gauge resets.
+-Did not test random strategy class rollAgain method or Game class getRandomPlayer method because results are random.
