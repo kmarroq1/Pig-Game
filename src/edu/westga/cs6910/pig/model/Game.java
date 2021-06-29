@@ -15,7 +15,7 @@ public class Game implements Observable {
 	/**
 	 * The goal score for the game
 	 */
-	public static final int GOAL_SCORE = 20;
+	private int goalScore;
 
 	private ObjectProperty<Player> currentPlayerObject;
 	private HumanPlayer theHuman;
@@ -42,7 +42,7 @@ public class Game implements Observable {
 		}
 		this.theHuman = theHuman;
 		this.theComputer = theComputer;
-
+		this.setGoalScore(20);
 		this.currentPlayerObject = new SimpleObjectProperty<Player>();
 
 		this.thePair = new DicePair();
@@ -64,9 +64,6 @@ public class Game implements Observable {
 		this.currentPlayerObject.setValue(firstPlayer);
 		this.firstPlayer = firstPlayer;
 		this.thePair = new DicePair();
-		if (firstPlayer == this.theComputer) {
-			this.play();
-		}
 	}
 
 	/**
@@ -79,7 +76,7 @@ public class Game implements Observable {
 	 */
 	public void play() {
 		Player currentPlayer = this.currentPlayerObject.getValue();
-		this.currentPlayerObject.getValue().takeTurn();
+		this.currentPlayerObject.getValue().takeTurn(this);
 
 		this.currentPlayerObject.setValue(null);
 		this.currentPlayerObject.setValue(currentPlayer);
@@ -114,9 +111,6 @@ public class Game implements Observable {
 	public void hold() {
 		if (!this.isGameOver()) {
 			this.swapWhoseTurn();
-		}
-		if (this.getCurrentPlayer() == this.theComputer) {
-			this.play();
 		}
 	}
 
@@ -157,7 +151,7 @@ public class Game implements Observable {
 			return true;
 		}
 
-		if (this.theHuman.getTotal() >= GOAL_SCORE || this.theComputer.getTotal() >= GOAL_SCORE) {
+		if (this.theHuman.getTotal() >= this.getGoalScore() || this.theComputer.getTotal() >= this.getGoalScore()) {
 			return true;
 		}
 		return false;
@@ -179,14 +173,14 @@ public class Game implements Observable {
 	 * @return a String representation of this Game
 	 */
 	public String toString() {
-		String result = "Goal Score: " + GOAL_SCORE;
+		String result = "Goal Score: " + this.getGoalScore();
 		result += System.getProperty("line.separator") + this.theHuman.getName() + ": " + this.theHuman.getTotal();
 		result += System.getProperty("line.separator") + this.theComputer.getName() + ": "
 				+ this.theComputer.getTotal();
 
-		if (this.theHuman.getTotal() >= GOAL_SCORE) {
+		if (this.theHuman.getTotal() >= this.getGoalScore()) {
 			return result + System.getProperty("line.separator") + "Game over! Winner: " + this.theHuman.getName();
-		} else if (this.theComputer.getTotal() >= GOAL_SCORE) {
+		} else if (this.theComputer.getTotal() >= this.getGoalScore()) {
 			return result + System.getProperty("line.separator") + "Game over! Winner: " + this.theComputer.getName();
 		} else {
 			return result;
@@ -214,6 +208,24 @@ public class Game implements Observable {
 	@Override
 	public void removeListener(InvalidationListener theListener) {
 		this.currentPlayerObject.removeListener(theListener);
+	}
+
+	/**
+	 * Gets goal score.
+	 * 
+	 * @return the goalScore
+	 */
+	public int getGoalScore() {
+		return this.goalScore;
+	}
+
+	/**
+	 * Sets goal score.
+	 * 
+	 * @param goalScore the goalScore to set
+	 */
+	public void setGoalScore(int goalScore) {
+		this.goalScore = goalScore;
 	}
 
 }

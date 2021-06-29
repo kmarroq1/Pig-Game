@@ -13,6 +13,7 @@ public abstract class AbstractPlayer implements Player {
 	private boolean isMyTurn;
 	private int total;
 	private int turnTotal;
+	private Game theGame;
 
 	/**
 	 * Creates a new ComputerPlayer with the specified name.
@@ -111,7 +112,11 @@ public abstract class AbstractPlayer implements Player {
 	 * 
 	 * @see Player#takeTurn()
 	 */
-	public void takeTurn() {
+	public void takeTurn(Game currentGame) {
+		if (currentGame == null) {
+			throw new IllegalArgumentException("Invalid game");
+		}
+		this.theGame = currentGame;
 		this.thePair.rollDice();
 
 		int die1Value = this.thePair.getDie1Value();
@@ -174,5 +179,14 @@ public abstract class AbstractPlayer implements Player {
 	 */
 	public int getTotal() {
 		return this.total;
+	}
+
+	/**
+	 * Gets the current game. 
+	 * 
+	 * @return the theGame
+	 */
+	public Game getTheGame() {
+		return this.theGame;
 	}
 }

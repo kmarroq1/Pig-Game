@@ -10,8 +10,9 @@ public interface Player {
 	/**
 	 * Rolls the die 1 or more times.
 	 * 
+	 * @param theGame currently taking place
 	 */
-	void takeTurn();
+	void takeTurn(Game theGame);
 
 	/**
 	 * Resets the turn total to 0

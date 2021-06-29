@@ -1,7 +1,5 @@
 package edu.westga.cs6910.pig.model;
 
-import java.util.concurrent.TimeUnit;
-
 import edu.westga.cs6910.pig.model.strategies.PigStrategy;
 
 /**
@@ -15,6 +13,7 @@ public class ComputerPlayer extends AbstractPlayer {
 	private static final String NAME = "Simple computer";
 	private int maximumRolls;
 	private PigStrategy strategy;
+	private Game theGame;
 
 	/**
 	 * Creates a new ComputerPlayer with the specified name.
@@ -63,12 +62,11 @@ public class ComputerPlayer extends AbstractPlayer {
 	/**
 	 * @see Computer#takeTurn()
 	 */
-	public void takeTurn() {
-		try {
-			TimeUnit.SECONDS.sleep((long) 0.5);
-		} catch (InterruptedException exception) {
-			System.out.println("Error: " + exception.getMessage());
+	public void takeTurn(Game currentGame) {
+		if (currentGame == null) {
+			throw new IllegalArgumentException("Invalid game");
 		}
+		this.theGame = currentGame;
 		int numberOfRolls = 0;
 		do {
 			numberOfRolls++;
@@ -84,7 +82,7 @@ public class ComputerPlayer extends AbstractPlayer {
 				super.addTurnTotal(die1Value, die2Value);
 				super.addTotal(die1Value, die2Value);
 			}
-		} while (this.strategy.rollAgain(numberOfRolls, getTurnTotal(), Game.GOAL_SCORE - getTotal()));
+		} while (this.strategy.rollAgain(numberOfRolls, getTurnTotal(), this.theGame.getGoalScore() - getTotal()));
 	}
 
 	/**
