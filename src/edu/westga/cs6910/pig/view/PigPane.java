@@ -403,6 +403,7 @@ public class PigPane extends BorderPane {
 					PigPane.this.pnGameInfo.invalidated(PigPane.this.theGame);
 					PigPane.this.pnGoalSetter.setDisable(true);
 				} catch (IllegalArgumentException exception) {
+					NewGamePane.this.goalScore.setText("");
 					PigPane.this.theGame.setGoalScore(20);
 				}
 			}
