@@ -6,7 +6,17 @@ import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
@@ -21,6 +31,7 @@ public class StatusPane extends GridPane implements InvalidationListener {
 	private Game theGame;
 	private Label lblStatus;
 	private Button playAgain;
+	private CheckMenuItem rulesItem;
 
 	/**
 	 * Creates a new status pane that observes the specified game.
@@ -31,7 +42,7 @@ public class StatusPane extends GridPane implements InvalidationListener {
 	 */
 	public StatusPane(Game theGame) {
 		this.theGame = theGame;
-
+		this.rulesItem();
 		this.theGame.addListener(this);
 
 		this.buildPane();
@@ -60,12 +71,94 @@ public class StatusPane extends GridPane implements InvalidationListener {
 	@Override
 	public void invalidated(Observable observable) {
 		this.lblStatus.setText(this.theGame.toString());
-		
+
 		if (this.theGame.isGameOver()) {
 			this.playAgain.setDisable(false);
 		} else {
 			this.playAgain.setDisable(true);
 		}
+	}
+
+	/**
+	 * Gets rules menu item.
+	 * 
+	 * @return the rulesItem
+	 */
+	public CheckMenuItem getRulesItem() {
+		return this.rulesItem;
+	}
+
+	/**
+	 * Sets rules menu item.
+	 * 
+	 * @param rulesItem the rulesItem to set
+	 */
+	public void setRulesItem(CheckMenuItem rulesItem) {
+		if (rulesItem == null) {
+			throw new IllegalArgumentException("Invalid menu item");
+		}
+		this.rulesItem = rulesItem;
+	}
+
+	/**
+	 * Shows the rules dialog if the item is selected.
+	 */
+	public void showRulesDialog() {
+		if (this.rulesItem.isSelected()) {
+			this.rulesItem.fire();
+		} else {
+			return;
+		}
+	}
+
+	/**
+	 * Creates rules menu item and adds an event handler.
+	 */
+	private void rulesItem() {
+		this.setRulesItem(new CheckMenuItem("R_ules"));
+		this.rulesItem.setSelected(true);
+		this.rulesItem.setMnemonicParsing(true);
+		this.rulesItem.setAccelerator(new KeyCodeCombination(KeyCode.U, KeyCombination.SHORTCUT_DOWN));
+		this.rulesItem.setOnAction(new EventHandler<ActionEvent>() {
+			/**
+			 * Opens up game instruction dialog.
+			 */
+			@Override
+			public void handle(ActionEvent arg0) {
+				StatusPane.this.buildRulesDialog().showAndWait();
+			}
+		});
+	}
+
+	/**
+	 * Builds the rules menu item.
+	 * 
+	 * @return updated dialog box
+	 */
+	private Dialog<String> buildRulesDialog() {
+		Dialog<String> rulesDialog = new Dialog<String>();
+		rulesDialog.setTitle("Instructions");
+
+		TabPane tabPane = new TabPane();
+		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		Tab howToPlay = new Tab();
+		howToPlay.setText("How to play");
+		Label guiRules = new Label(
+				"1. (Opt.) Set a new goal score\n2. (Opt.) Select a strategy for the computer player\n3. Select the first player\n4. Either Roll/Hold or Take Turn depending on whose turn it is\n5. Play again!");
+		howToPlay.setContent(guiRules);
+		Tab howToWin = new Tab();
+		howToWin.setText("How to win");
+		Label winningRules = new Label(
+				"A common strategy includes taking more risks by rolling\nat the beginning of the game. Once you start getting\n closer to the goal score, hold after less rolls.");
+		howToWin.setContent(winningRules);
+		tabPane.getTabs().addAll(howToPlay, howToWin);
+		rulesDialog.setGraphic(tabPane);
+
+		ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+		rulesDialog.getDialogPane().getButtonTypes().add(okButton);
+		rulesDialog.getDialogPane().setMaxWidth(350);
+
+		return rulesDialog;
 	}
 
 	/**
@@ -84,7 +177,9 @@ public class StatusPane extends GridPane implements InvalidationListener {
 				return;
 			} else {
 				StatusPane.this.theGame.playAgain();
+				StatusPane.this.showRulesDialog();
 			}
+
 		}
 	}
 }
