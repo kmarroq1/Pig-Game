@@ -16,6 +16,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
@@ -200,11 +203,26 @@ public class PigPane extends BorderPane {
 				@Override
 				public void handle(ActionEvent arg0) {
 					Dialog<String> dialog = new Dialog<String>();
-					dialog.setTitle("How to play");
-					ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
-					dialog.setContentText(
+					dialog.setTitle("Instructions");
+
+					TabPane tabPane = new TabPane();
+					tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+					Tab howToPlay = new Tab();
+					howToPlay.setText("How to play");
+					Label guiRules = new Label(
 							"1. (Opt.) Set a new goal score\n2. (Opt.) Select a strategy for the computer player\n3. Select the first player\n4. Either Roll/Hold or Take Turn depending on whose turn it is\n5. Play again!");
-					dialog.getDialogPane().getButtonTypes().add(type);
+					howToPlay.setContent(guiRules);
+					Tab howToWin = new Tab();
+					howToWin.setText("How to win");
+					Label winningRules = new Label(
+							"A common strategy includes taking more risks by rolling\nat the beginning of the game. Once you start getting\n closer to the goal score, hold after less rolls.");
+					howToWin.setContent(winningRules);
+					tabPane.getTabs().addAll(howToPlay, howToWin);
+
+					dialog.setGraphic(tabPane);
+					ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+					dialog.getDialogPane().getButtonTypes().add(okButton);
+					dialog.getDialogPane().setMaxWidth(350);
 					dialog.showAndWait();
 				}
 			});
