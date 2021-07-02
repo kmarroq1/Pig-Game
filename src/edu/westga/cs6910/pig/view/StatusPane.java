@@ -105,7 +105,7 @@ public class StatusPane extends GridPane implements InvalidationListener {
 	 */
 	public void showRulesDialog() {
 		if (this.rulesItem.isSelected()) {
-			this.rulesItem.fire();
+			this.buildRulesDialog().showAndWait();
 		} else {
 			return;
 		}
@@ -119,15 +119,6 @@ public class StatusPane extends GridPane implements InvalidationListener {
 		this.rulesItem.setSelected(true);
 		this.rulesItem.setMnemonicParsing(true);
 		this.rulesItem.setAccelerator(new KeyCodeCombination(KeyCode.U, KeyCombination.SHORTCUT_DOWN));
-		this.rulesItem.setOnAction(new EventHandler<ActionEvent>() {
-			/**
-			 * Opens up game instruction dialog.
-			 */
-			@Override
-			public void handle(ActionEvent arg0) {
-				StatusPane.this.buildRulesDialog().showAndWait();
-			}
-		});
 	}
 
 	/**
@@ -144,12 +135,12 @@ public class StatusPane extends GridPane implements InvalidationListener {
 		Tab howToPlay = new Tab();
 		howToPlay.setText("How to play");
 		Label guiRules = new Label(
-				"1. (Opt.) Set a new goal score\n2. (Opt.) Select a strategy for the computer player\n3. Select the first player\n4. Either Roll/Hold or Take Turn depending on whose turn it is\n5. Play again!");
+				"\nTo opt out of this dialog, uncheck the Rules menu item in the\nGame menu.\n\n1. (Opt.) Set a new goal score\n2. (Opt.) Select a strategy for the computer player\n3. Select the first player\n4. Either Roll/Hold or Take Turn depending on whose turn it is\n5. Play again!");
 		howToPlay.setContent(guiRules);
 		Tab howToWin = new Tab();
 		howToWin.setText("How to win");
 		Label winningRules = new Label(
-				"A common strategy includes taking more risks by rolling\nat the beginning of the game. Once you start getting\n closer to the goal score, hold after less rolls.");
+				"\nTo opt out of this dialog, uncheck the Rules menu item in the\nGame menu.\n\nA common strategy includes taking more risks by rolling\nat the beginning of the game. Once you start getting\n closer to the goal score, hold after less rolls.");
 		howToWin.setContent(winningRules);
 		tabPane.getTabs().addAll(howToPlay, howToWin);
 		rulesDialog.setGraphic(tabPane);
