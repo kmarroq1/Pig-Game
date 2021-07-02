@@ -8,17 +8,12 @@ import edu.westga.cs6910.pig.model.strategies.RandomStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
@@ -61,9 +56,6 @@ public class PigPane extends BorderPane {
 		}
 		this.theGame = theGame;
 
-		this.menuPane = new MenuBarPane();
-		super.setTop(this.menuPane);
-
 		this.pnContent = new BorderPane();
 		this.setCenter(this.pnContent);
 
@@ -71,6 +63,9 @@ public class PigPane extends BorderPane {
 		this.addHumanPlayerPane();
 		this.addGameStatusPane();
 		this.addComputerPlayerPane();
+
+		this.menuPane = new MenuBarPane();
+		super.setTop(this.menuPane);
 	}
 
 	/**
@@ -138,7 +133,6 @@ public class PigPane extends BorderPane {
 		 */
 		private void buildMenuBar() {
 			MenuBar menuBar = new MenuBar();
-
 			this.buildGameMenu();
 			this.buildStrategyMenu();
 
@@ -153,15 +147,11 @@ public class PigPane extends BorderPane {
 			this.gameMenu = new Menu("_Game");
 			this.gameMenu.setMnemonicParsing(true);
 
-			RadioMenuItem exitItem = this.exitItem();
-			RadioMenuItem rulesItem = this.rulesItem();
+			MenuItem exitItem = this.exitItem();
 
-			this.gameMenu.getItems().add(rulesItem);
+			this.gameMenu.getItems().add(PigPane.this.pnGameInfo.getRulesItem());
 			this.gameMenu.getItems().add(exitItem);
 
-			ToggleGroup toggleGroup = new ToggleGroup();
-			toggleGroup.getToggles().add(rulesItem);
-			toggleGroup.getToggles().add(exitItem);
 		}
 
 		/**
@@ -169,8 +159,8 @@ public class PigPane extends BorderPane {
 		 * 
 		 * @return exit menu item
 		 */
-		private RadioMenuItem exitItem() {
-			RadioMenuItem exitItem = new RadioMenuItem("E_xit");
+		private MenuItem exitItem() {
+			MenuItem exitItem = new RadioMenuItem("E_xit");
 			exitItem.setMnemonicParsing(true);
 			exitItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
 			exitItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -184,49 +174,6 @@ public class PigPane extends BorderPane {
 				}
 			});
 			return exitItem;
-		}
-
-		/**
-		 * Opens up rules dialog.
-		 * 
-		 * @return opens rules dialog
-		 */
-		private RadioMenuItem rulesItem() {
-			RadioMenuItem rulesItem = new RadioMenuItem("R_ules");
-			rulesItem.setMnemonicParsing(true);
-			rulesItem.setAccelerator(new KeyCodeCombination(KeyCode.U, KeyCombination.SHORTCUT_DOWN));
-			rulesItem.setOnAction(new EventHandler<ActionEvent>() {
-
-				/**
-				 * Opens up game instruction dialog.
-				 */
-				@Override
-				public void handle(ActionEvent arg0) {
-					Dialog<String> dialog = new Dialog<String>();
-					dialog.setTitle("Instructions");
-
-					TabPane tabPane = new TabPane();
-					tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-					Tab howToPlay = new Tab();
-					howToPlay.setText("How to play");
-					Label guiRules = new Label(
-							"1. (Opt.) Set a new goal score\n2. (Opt.) Select a strategy for the computer player\n3. Select the first player\n4. Either Roll/Hold or Take Turn depending on whose turn it is\n5. Play again!");
-					howToPlay.setContent(guiRules);
-					Tab howToWin = new Tab();
-					howToWin.setText("How to win");
-					Label winningRules = new Label(
-							"A common strategy includes taking more risks by rolling\nat the beginning of the game. Once you start getting\n closer to the goal score, hold after less rolls.");
-					howToWin.setContent(winningRules);
-					tabPane.getTabs().addAll(howToPlay, howToWin);
-
-					dialog.setGraphic(tabPane);
-					ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
-					dialog.getDialogPane().getButtonTypes().add(okButton);
-					dialog.getDialogPane().setMaxWidth(350);
-					dialog.showAndWait();
-				}
-			});
-			return rulesItem;
 		}
 
 		/**
@@ -422,6 +369,7 @@ public class PigPane extends BorderPane {
 				PigPane.this.pnChooseFirstPlayer.setDisable(true);
 				PigPane.this.pnComputerPlayer.setDisable(false);
 				PigPane.this.theGame.startNewGame(NewGamePane.this.theComputer);
+				PigPane.this.pnGameInfo.showRulesDialog();
 			}
 		}
 
@@ -438,6 +386,7 @@ public class PigPane extends BorderPane {
 				PigPane.this.pnChooseFirstPlayer.setDisable(true);
 				PigPane.this.pnHumanPlayer.setDisable(false);
 				PigPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
+				PigPane.this.pnGameInfo.showRulesDialog();
 			}
 		}
 
@@ -459,6 +408,7 @@ public class PigPane extends BorderPane {
 					PigPane.this.pnComputerPlayer.setDisable(false);
 					PigPane.this.theGame.startNewGame(NewGamePane.this.theComputer);
 				}
+				PigPane.this.pnGameInfo.showRulesDialog();
 			}
 		}
 	}
