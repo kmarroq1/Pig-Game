@@ -15,6 +15,7 @@ Technologies Used:
 To-do:
 -Add game to frontend.
 -Make computer take its turn automatically.
+-Create rules dialog class.
 
 Notes: 
 -Constructors for classes referencing abstract super classes (HumanPlayer and ComputerPlayer) were indirectly tested by using 
